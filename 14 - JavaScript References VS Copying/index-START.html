@@ -25,13 +25,23 @@
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
+    const t2 = players.slice();
+    t2[3] = 'Lux';
+    console.log(players, t2);
 
     // one way
 
     // or create a new array and concat the old one in
-
+    const t3 = [].concat(players);
+    t3.push("Kev");
     // or use the new ES6 Spread
+    const t4 = [...players];
+    t4.push("Kelly");
+    console.log(t3, t4);
 
+    const t5 = Array.from(players);
+    t5[0] = "Mugger";
+    console.log(t5);
     // now when we update it, the original one isn't changed
 
     // The same thing goes for objects, let's say we have a person object
@@ -43,12 +53,38 @@
     };
 
     // and think we make a copy:
+    //const cap1 = person;
+    //cap1.number = 99;
 
     // how do we take a copy instead?
+    //Object.assign(obj to create, reference obj, values in new obj)
+    const cap2 = Object.assign({}, person, {number: 99, age: 12});
+    console.log(person, cap2);
 
     // We will hopefully soon see the object ...spread
+    const cap3 = {...person};  // Only goes one level deep
+    console.log("cap3", cap3);
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+    const kels = {
+      name: "Kelly",
+      age: 25,
+      social: {
+        linkedin: "kellymhli",
+        instagram: "lellykii",
+      }
+    };
+    console.log(kels);
+
+    const dev = {...kels};
+    // dev.social.linkedin = "kalamoing"; // Updates in noth objects
+    console.log(dev, kels);
+
+    // Deep copy of object using JSON
+    const d2 = JSON.parse(JSON.stringify(kels));
+    console.log(d2)
+    d2.social.linkedin = "kalamoing";
+    console.log(kels, dev, d2);
 
   </script>
 
